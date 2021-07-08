@@ -1,6 +1,6 @@
 # FIRST INSTANCE
 resource "aws_vpc" "account_one" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = "10.0.0.0/24"
 
    tags = {
     Name = "account_one"
@@ -9,7 +9,7 @@ resource "aws_vpc" "account_one" {
 
 resource "aws_subnet" "subnet_one" {
   vpc_id            = aws_vpc.account_one.id
-  cidr_block        = "10.0.0.0/16"
+  cidr_block        = "10.0.0.0/24"
   availability_zone = "us-east-1a"
 
   tags = {
@@ -19,7 +19,6 @@ resource "aws_subnet" "subnet_one" {
 
 resource "aws_network_interface" "network_one" {
   subnet_id   = aws_subnet.subnet_one.id
-  private_ips = ["172.16.10.100"]
 
   tags = {
     Name = "primary_network_interface"
@@ -27,7 +26,7 @@ resource "aws_network_interface" "network_one" {
 }
 
 resource "aws_instance" "instance_one" {
-  ami           = "ami-005e54dee72cc1d00"
+  ami           = "ami-0d296d66f22f256c2"
   instance_type = "t2.micro"
 
   network_interface {
@@ -63,7 +62,6 @@ resource "aws_subnet" "subnet_two" {
 
 resource "aws_network_interface" "network_two" {
   subnet_id   = aws_subnet.subnet_two.id
-  private_ips = ["172.16.10.100"]
 
   tags = {
     Name = "secondary_network_interface"
@@ -71,7 +69,7 @@ resource "aws_network_interface" "network_two" {
 }
 
 resource "aws_instance" "instance_two" {
-  ami           = "ami-005e54dee72cc1d00"
+  ami           = "ami-0d296d66f22f256c2"
   instance_type = "t2.micro"
 
    network_interface {
